@@ -37,8 +37,8 @@ const game = {
             }
             this.framesCounter++;
             this.clear();
-            this.drawAll();
             this.moveAll();
+            this.drawAll();
             /*
             this.generateObstacles();
             this.clearObstacles();
@@ -53,21 +53,21 @@ const game = {
 
     reset() {
       this.player = new Player(this.ctx, this.width, this.height, this.keys);
-    //   this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png");
+      this.background = new Background(this.ctx, this.width, this.height, "./images/bg.png");
     //   this.obstacles = [];
     //   this.scoreboard = scoreboard;
     },
     
   
     drawAll() {
+      this.background.draw();
       this.player.draw(this.player.posX, this.player.posY, this.player.imagePosition);
-    //   this.background.draw();
     //   this.obstacles.forEach(obs => obs.draw());
     },
   
     moveAll() {
       this.player.move();
-    //   this.background.move();
+      this.background.move();
     //   this.obstacles.forEach(obs => obs.move());
     },
   

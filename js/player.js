@@ -20,7 +20,7 @@ class Player {
     this.setListeners();
   }
 
-  draw(posX, posY,imagePosition) {
+  draw(posX, posY, imagePosition) {
     console.log();
     this.ctx.drawImage(
       this.image,
@@ -36,42 +36,47 @@ class Player {
   }
 
   move() {
-    const limit = 100;
-    // if (this.posY < this.height) {
-    //   //Top limit
-    //   this.posY === this.posY + this.height;
-    // } else if (this.posX < this.width) {
-    //   //Left limit
-    //   this.posX = this.posX;
-    // } else if (this.posX > this.gameWidth - limit) {
-    //   //Right limit
-    //   this.posX === this.posX;
-    // } else if (this.posY > this.gameHeight - limit) {
-    //   //Down limit
-    //   this.posY === this.gameHeight - this.height;
-    // }
+    //Aquí no pasa nada, pasa la vida pasa
   }
 
   setListeners() {
     document.addEventListener("keydown", e => {
-     //debugger;
+      const limit = 100;
       switch (e.keyCode) {
         case this.keys.TOP:
           this.imagePosition = 0;
-          this.posY -= 50;
-          
+          if (this.posY <= this.height) {
+            this.posY === this.posY + this.height;
+          } else {
+            this.posY -= 50;
+          }
           break;
+
         case this.keys.LEFT:
           this.imagePosition = 50;
-          this.posX -= 50;
+          if (this.posX < this.width) {
+            this.posX = this.posX;
+          } else {
+            this.posX -= 50;
+          }
           break;
+
         case this.keys.RIGHT:
           this.imagePosition = 100;
-          this.posX += 50;
+          if (this.posX > this.gameWidth - limit) {
+            this.posX === this.posX;
+          } else {
+            this.posX += 50;
+          }
           break;
+
         case this.keys.DOWN:
           this.imagePosition = 150;
-          this.posY += 50;
+          if (this.posY > this.gameHeight - limit) {
+            this.posY === this.gameHeight - this.height;
+          } else {
+            this.posY += 50;
+          }
           break;
       }
     });
