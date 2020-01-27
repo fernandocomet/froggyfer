@@ -14,6 +14,13 @@ const game = {
       DOWN: 40
     },
   
+    setDimensions() {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+      this.canvas.width = this.width;
+      this.canvas.height = this.height;
+    },
+
     init() {
       this.canvas = document.getElementById("myCanvas");
       this.ctx = this.canvas.getContext("2d");
@@ -21,38 +28,39 @@ const game = {
     //   scoreboard.init(this.ctx);
       this.start();
     },
-  
+    
     start() {
-      this.reset();
-      this.interval = setInterval(() => {
-        if (this.framesCounter > 5000) {
-          this.framesCounter = 0;
-        }
-        this.framesCounter++;
-        this.clear();
-        this.drawAll();
-        this.moveAll();
-        /*
-        this.generateObstacles();
-        this.clearObstacles();
-        if (this.isCollision()) {
-          this.gameOver();
-        }
-        this.score += 0.01;
-        this.drawScore();
-        */
-      }, 1000 / this.FPS);
+        this.reset();
+        this.interval = setInterval(() => {
+            if (this.framesCounter > 5000) {
+                this.framesCounter = 0;
+            }
+            this.framesCounter++;
+            this.clear();
+            this.drawAll();
+            this.moveAll();
+            /*
+            this.generateObstacles();
+            this.clearObstacles();
+            if (this.isCollision()) {
+                this.gameOver();
+            }
+            this.score += 0.01;
+            this.drawScore();
+            */
+        }, 1000 / this.FPS);
     },
-  
-    setDimensions() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
-      this.canvas.width = this.width;
-      this.canvas.height = this.height;
+
+    reset() {
+      this.player = new Player(this.ctx, this.width, this.height, this.keys);
+    //   this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png");
+    //   this.obstacles = [];
+    //   this.scoreboard = scoreboard;
     },
+    
   
-    drawAll(imagePosition) {
-      this.player.draw(imagePosition);
+    drawAll() {
+      this.player.draw(this.player.posX, this.player.posY, this.player.imagePosition);
     //   this.background.draw();
     //   this.obstacles.forEach(obs => obs.draw());
     },
@@ -61,13 +69,6 @@ const game = {
       this.player.move();
     //   this.background.move();
     //   this.obstacles.forEach(obs => obs.move());
-    },
-  
-    reset() {
-      this.player = new Player(this.ctx, this.width, this.height, this.keys);
-    //   this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png");
-    //   this.obstacles = [];
-    //   this.scoreboard = scoreboard;
     },
   
     clear() {
