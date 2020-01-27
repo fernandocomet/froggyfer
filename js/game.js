@@ -53,7 +53,7 @@ const game = {
 
     reset() {
       this.player = new Player(this.ctx, this.width, this.height, this.keys);
-      this.background = new Background(this.ctx, this.width, this.height, "./images/bg.png");
+      this.background = new Background(this.ctx, this.width, this.height, "./images/bg3.png");
     //   this.obstacles = [];
     //   this.scoreboard = scoreboard;
     },

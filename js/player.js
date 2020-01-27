@@ -13,7 +13,7 @@ class Player {
     this.imagePosition = 0;
 
     this.posX = this.gameWidth / 2 - this.width / 2;
-    this.posY = this.gameHeight - this.height - 100;
+    this.posY = this.gameHeight - this.height;
 
     this.keys = keys;
     this.velY = 1;
