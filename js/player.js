@@ -8,29 +8,36 @@ class Player {
     this.height = 50;
 
     this.image = new Image();
-    this.image.src = "./images/ranita.png";
+    // this.image.src = "./images/player.png";
+    this.image.src = "./images/playersprite.png";
+    this.imagePosition = 0;
 
     this.posX = this.gameWidth / 2 - this.width / 2;
     this.posY = this.gameHeight - this.height - 100;
-    //this.posY0 = this.posY; Do I need this?
 
     this.keys = keys;
     this.velY = 1;
     this.setListeners();
   }
 
-  draw() {
+  draw(imagePosition) {
     this.ctx.drawImage(
       this.image,
-      this.posX,
-      this.posY,
+      this.imagePosition,
+      0,
+      this.width,
+      this.height,
+      this.gameWidth / 2,
+      this.gameHeight / 2,
       this.width,
       this.height
     );
   }
 
+  /*void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+   */
+
   move() {
-    //SET LIMITS
     //if(this.posY < 0){this.posY === 0}
     /*
       if (this.posY < this.posY0) {
@@ -48,30 +55,33 @@ class Player {
     document.addEventListener("keydown", e => {
       switch (e.keyCode) {
         case this.keys.TOP:
+          this.imagePosition = 0;
           if (this.posY < this.height) {
-            this.posY === this.posY + this.height;
-          } else {
-            this.posY -= 50;
-          }
-          break;
+              this.posY === this.posY + this.height;
+            } else {
+                this.posY -= 50;
+            }
+            break;
         case this.keys.LEFT:
-          if (this.posX < this.width){ 
+          this.imagePosition = 50;
+          if (this.posX < this.width) {
             this.posX = this.posX;
-          }else{
-              this.posX -= 50;
+          } else {
+            this.posX -= 50;
           }
           break;
         case this.keys.RIGHT:
-          if (this.posX > this.gameWidth - limit){
-              this.posX === this.posX; //this.gameWidth
-          } 
-          else{
-              this.posX += 50;
+          this.imagePosition = 100;
+          if (this.posX > this.gameWidth - limit) {
+            this.posX === this.posX;
+          } else {
+            this.posX += 50;
           }
           break;
         case this.keys.DOWN:
+          this.imagePosition = 150;
           if (this.posY > this.gameHeight - limit) {
-             this.posY === this.gameHeight - this.height;
+            this.posY === this.gameHeight - this.height;
           } else {
             this.posY += 50;
           }

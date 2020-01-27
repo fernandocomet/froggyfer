@@ -51,8 +51,8 @@ const game = {
       this.canvas.height = this.height;
     },
   
-    drawAll() {
-      this.player.draw();
+    drawAll(imagePosition) {
+      this.player.draw(imagePosition);
     //   this.background.draw();
     //   this.obstacles.forEach(obs => obs.draw());
     },
