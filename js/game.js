@@ -30,7 +30,7 @@ const game = {
       this.canvas = document.getElementById("myCanvas");
       this.ctx = this.canvas.getContext("2d");
       this.setDimensions();
-      //scoreboard.init(this.ctx);
+      scoreboard.init(this.ctx);
       this.start();
     },
     
@@ -46,12 +46,11 @@ const game = {
             this.drawAll();
             this.generateObstacles();
             this.clearObstacles();
-            /*if (this.isCollision()) {
+            if (this.isCollision()) {
                 this.gameOver();
             }
             this.score += 0.01;
             this.drawScore();
-            */
         }, 1000 / this.FPS);
     },
 
@@ -59,7 +58,7 @@ const game = {
       this.player = new Player(this.ctx, this.width, this.height, this.keys);
       this.background = new Background(this.ctx, this.width, this.height, "./images/bg5.png");
       this.obstaclesArr = [];
-    //   this.scoreboard = scoreboard;
+      this.scoreboard = scoreboard;
     },
   
     drawAll() {
@@ -80,7 +79,8 @@ const game = {
 
     generateObstacles() {
       if (this.framesCounter % 100 == 0) {
-        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30,false));
+        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, this.isReverse));
+        // this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, false));
         //constructor(ctx, width, height, isReverse) 
         console.log(this.obstaclesArr);
       }
@@ -94,26 +94,29 @@ const game = {
     //     return item.posX <= 0 
     //   })
      this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= -500);
+     //TO DO falta la otra
     },
   
-    /*
+    
     isCollision() {
-      return this.obstacles.some(obs => {
+      return this.obstaclesArr.some(obs => {
         return (
-          this.player.posX + this.player.width >= obs.posX &&
-          this.player.posY + this.player.height >= obs.posY &&
-          this.player.posX <= obs.posX + obs.width
+            this.player.posX < obs.posX + obs.width &&
+            this.player.posX + this.player.width > obs.posX &&          
+            this.player.posY < obs.posY + obs.height &&                 
+            this.player.posY + this.player.height > obs.posY            
         );
       });
     },
     
     gameOver() {
       clearInterval(this.interval);
-      TODO Play Again & whatsoever
+      console.log("GAME OVER");
+      //TODO Play Again & whatsoever
     },
-  
+     
     drawScore() {
       this.scoreboard.update(this.score);
-    }*/
+    }
   };
-  
+

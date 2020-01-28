@@ -10,7 +10,6 @@ class Player {
     this.height = this.imageSize;
 
     this.image = new Image();
-    // this.image.src = "./images/player.png";
     this.image.src = "./images/playersprite.png";
     this.imagePosition = 0;
 
