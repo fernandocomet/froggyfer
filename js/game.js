@@ -79,7 +79,7 @@ const game = {
 
     generateObstacles() {
       if (this.framesCounter % 100 == 0) {
-        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, this.isReverse));
+        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, Math.randomInt(0, 1), this.canvas.width));
         // this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, false));
         //constructor(ctx, width, height, isReverse) 
         console.log(this.obstaclesArr);
@@ -93,7 +93,7 @@ const game = {
     //   this.obstaclesArr = this.obstaclesArr.filter((item) => {
     //     return item.posX <= 0 
     //   })
-     this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= -500);
+     this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= -500 || obs.posX <= this.canvas.width);
      //TO DO falta la otra
     },
   
