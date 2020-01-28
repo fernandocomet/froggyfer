@@ -1,3 +1,8 @@
+
+Math.randomFloat = (min, max) => Math.random() * (max - min) + min;
+Math.randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+Math.shuffle = (array, _) => array.sort(() => Math.random() - 0.5);
+
 const game = {
     canvas: undefined,
     ctx: undefined,
@@ -6,7 +11,7 @@ const game = {
     FPS: 60,
     framesCounter: 0,
     score: 0,
-    // obstacles: [],
+    obstacles: [],
     keys: {
       TOP: 38,
       LEFT: 37,
@@ -25,7 +30,7 @@ const game = {
       this.canvas = document.getElementById("myCanvas");
       this.ctx = this.canvas.getContext("2d");
       this.setDimensions();
-    //   scoreboard.init(this.ctx);
+      //scoreboard.init(this.ctx);
       this.start();
     },
     
@@ -39,10 +44,9 @@ const game = {
             this.clear();
             this.moveAll();
             this.drawAll();
-            /*
             this.generateObstacles();
             this.clearObstacles();
-            if (this.isCollision()) {
+            /*if (this.isCollision()) {
                 this.gameOver();
             }
             this.score += 0.01;
@@ -53,39 +57,42 @@ const game = {
 
     reset() {
       this.player = new Player(this.ctx, this.width, this.height, this.keys);
-      this.background = new Background(this.ctx, this.width, this.height, "./images/bg3.png");
-    //   this.obstacles = [];
+      this.background = new Background(this.ctx, this.width, this.height, "./images/bg4.png");
+      this.obstaclesArr = [];
     //   this.scoreboard = scoreboard;
     },
-    
   
     drawAll() {
       this.background.draw();
       this.player.draw(this.player.posX, this.player.posY, this.player.imagePosition);
-    //   this.obstacles.forEach(obs => obs.draw());
+      this.obstaclesArr.forEach(obs => obs.draw());
     },
   
     moveAll() {
       this.player.move();
       this.background.move();
-    //   this.obstacles.forEach(obs => obs.move());
+      this.obstaclesArr.forEach(obs => obs.move());
     },
   
     clear() {
       this.ctx.clearRect(0, 0, this.width, this.height);
     },
-    /*
+
     generateObstacles() {
-      if (this.framesCounter % 90 == 0) {
-        this.obstacles.push(new Obstacle(this.ctx, this.width, this.height, this.player.posY0, this.player.height));
-        console.log(this.obstacles);
+      if (this.framesCounter % 200 == 0) {
+        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 400), 30,false));
+        //constructor(ctx, width, height, isReverse) 
+        console.log(this.obstaclesArr);
       }
     },
   
     clearObstacles() {
-      this.obstacles = this.obstacles.filter(obs => obs.posX >= 0);
+      //TO DO quitar obstáculos cuando se salgan del canvas x
+      //this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= this.canvas.width + 300);
+      //this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX <= 0);
     },
   
+    /*
     isCollision() {
       return this.obstacles.some(obs => {
         return (

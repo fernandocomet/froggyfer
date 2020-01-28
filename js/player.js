@@ -4,8 +4,10 @@ class Player {
     this.gameWidth = gameW;
     this.gameHeight = gameH;
 
-    this.width = 50;
-    this.height = 50;
+    this.imageSize = 50;
+
+    this.width = this.imageSize;
+    this.height = this.imageSize;
 
     this.image = new Image();
     // this.image.src = "./images/player.png";
@@ -21,7 +23,7 @@ class Player {
   }
 
   draw(posX, posY, imagePosition) {
-    console.log();
+    // console.log();
     this.ctx.drawImage(
       this.image,
       imagePosition,
@@ -40,15 +42,18 @@ class Player {
   }
 
   setListeners() {
+    let advance = 25;
+    const limit = 100;
+
     document.addEventListener("keydown", e => {
-      const limit = 100;
+      
       switch (e.keyCode) {
         case this.keys.TOP:
-          this.imagePosition = 0;
+          this.imagePosition = 0; 
           if (this.posY <= this.height) {
             this.posY === this.posY + this.height;
           } else {
-            this.posY -= 50;
+            this.posY -= advance;
           }
           break;
 
@@ -57,27 +62,29 @@ class Player {
           if (this.posX < this.width) {
             this.posX = this.posX;
           } else {
-            this.posX -= 50;
+            this.posX -= advance;
           }
           break;
 
         case this.keys.RIGHT:
-          this.imagePosition = 100;
+          this.imagePosition = 100; 
           if (this.posX > this.gameWidth - limit) {
             this.posX === this.posX;
           } else {
-            this.posX += 50;
+            this.posX += advance;
           }
           break;
 
         case this.keys.DOWN:
-          this.imagePosition = 150;
+          this.imagePosition = 150; 
           if (this.posY > this.gameHeight - limit) {
             this.posY === this.gameHeight - this.height;
           } else {
-            this.posY += 50;
+            this.posY += advance;
           }
           break;
+
+        
       }
     });
   }
