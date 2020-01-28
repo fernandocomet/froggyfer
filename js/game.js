@@ -57,7 +57,7 @@ const game = {
 
     reset() {
       this.player = new Player(this.ctx, this.width, this.height, this.keys);
-      this.background = new Background(this.ctx, this.width, this.height, "./images/bg4.png");
+      this.background = new Background(this.ctx, this.width, this.height, "./images/bg5.png");
       this.obstaclesArr = [];
     //   this.scoreboard = scoreboard;
     },
@@ -79,8 +79,8 @@ const game = {
     },
 
     generateObstacles() {
-      if (this.framesCounter % 200 == 0) {
-        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 400), 30,false));
+      if (this.framesCounter % 100 == 0) {
+        this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30,false));
         //constructor(ctx, width, height, isReverse) 
         console.log(this.obstaclesArr);
       }
@@ -90,6 +90,10 @@ const game = {
       //TO DO quitar obstáculos cuando se salgan del canvas x
       //this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= this.canvas.width + 300);
       //this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX <= 0);
+    //   this.obstaclesArr = this.obstaclesArr.filter((item) => {
+    //     return item.posX <= 0 
+    //   })
+     this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= -500);
     },
   
     /*
