@@ -14,15 +14,17 @@
         body {
             overflow: hidden;
         }
-        body {
-            margin: 0;
-            padding: 0;
-        }
         #myCanvas {
+            padding: 0;
+            margin: auto;
+            display: block;
+            width: 1366px;
+            height: 768px;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);   
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
     </style>
     <canvas id="myCanvas" width="1366" height="768"></canvas>
@@ -34,6 +36,7 @@
     <script src="js/obstacles.js"></script>
     <script src="js/bridges.js"></script>
     <script src="js/scoreboard.js"></script>
+    <script src="js/house.js"></script>
 </body>
 
 </html>

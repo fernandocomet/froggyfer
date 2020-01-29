@@ -170,18 +170,33 @@ const game = {
     }
 
     if (
+     //for Each
+          /*for Each
+     items.forEach((item) => {
+        console.log(item.name);
+    })
+    
+    var sample = [1, 2, 3];
+    sample.forEach((elem, index) => console.log(`${elem} comes at ${index}`));
+    */
+
+     //Some
       this.bridgesArr.some(bridge => {
         return (
           this.player.posX < bridge.posX + bridge.width &&
           this.player.posX + this.player.width > bridge.posX &&
           this.player.posY < bridge.posY + bridge.height &&
           this.player.posY + this.player.height > bridge.posY
-        );
+        ); 
       })
     ) {
       bridgeCollision = true;
     } else {
       bridgeCollision = false;
+    }
+    if((waterCollision === true) && (bridgeCollision === true)){
+        console.log("over trunk!");
+        //this.player.posX = this.bridge.posX;
     }
 
     if (waterCollision === true && bridgeCollision === false) {
