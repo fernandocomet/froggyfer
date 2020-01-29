@@ -14,7 +14,10 @@ class Player {
     this.imagePosition = 0;
 
     this.posX = this.gameWidth / 2 - this.width / 2;
-    this.posY = this.gameHeight - this.height;
+    // this.posY = this.gameHeight - this.height;
+    this.posY = 700;
+    // console.log("this.gameHeight = " + this.gameHeight);
+    // console.log("this.posY = " + this.posY)
 
     this.keys = keys;
     this.velY = 1;
@@ -41,7 +44,7 @@ class Player {
   }
 
   setListeners() {
-    let advance = 25;
+    let advance = 50;   //25
     const limit = 100;
 
     document.addEventListener("keydown", e => {
@@ -54,6 +57,7 @@ class Player {
           } else {
             this.posY -= advance;
           }
+        //   console.log(this.posY);
           break;
 
         case this.keys.LEFT:
