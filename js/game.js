@@ -67,7 +67,7 @@ const game = {
       this.ctx,
       1366, //this.width,
       768, //this.height,
-      "./images/road.png"
+      "./images/trial.png"   //road
     );
     this.water = new Water(
       this.ctx,
@@ -75,8 +75,14 @@ const game = {
       200, //this.height,
       "./images/water.png"
     );
-    //Aquí las casas  this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    this.house = new House(this.ctx, 1366/5, 0, 50, 50);
+    //Aquí las casas  constructor(ctx, w, h, imgSource) {
+    //this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    this.house = new House(
+        this.ctx, 
+        50, 
+        50, 
+        "./images/house.png"
+    );
     this.obstaclesArr = [];
     this.bridgesArr = [];
     this.scoreboard = scoreboard;
@@ -88,11 +94,7 @@ const game = {
     this.water.draw();
     this.obstaclesArr.forEach(obs => obs.draw());
     this.bridgesArr.forEach(bridge => bridge.draw());
-    this.house.draw(
-        this.player.posX,
-        this.player.posY,
-        this.player.imagePosition
-    );
+    this.house.draw();
     this.player.draw(
       this.player.posX,
       this.player.posY,

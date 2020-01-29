@@ -7,26 +7,17 @@ class House {
       this.height = this.imageSize;
   
       this.image = new Image();
-      this.image.src = "./images/house.png";
+      this.image.src = imgSource;
       this.imagePosition = 0;
   
-      this.posX = this.posX;
+      this.posX = 0;
       this.posY = 0;
     }
-  
-    draw(posX, posY, imagePosition) {
-        this.ctx.drawImage(
-          this.image,
-          imagePosition,
-          0,
-          this.width,
-          this.height,
-          posX,
-          posY,
-          this.width,
-          this.height
-        );
-      }
+
+    draw() {
+        this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+      //   void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    }
   
     move() {
     }
