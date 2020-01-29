@@ -5,8 +5,8 @@ class Obstacle {
       //this.obstaclesPosY = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
 
       //Update ObstaclesArray only for the road
-      //this.obstaclesPosY = [0, 350, 400, 450, 500, 550, 600];
-      this.obstaclesPosY = [12, 62, 312, 362, 412, 462, 512, 562, 612, 662]
+      //this.obstaclesPosY = [0, 350, 400, 450, 500, 550, 600]; borro 12
+      this.obstaclesPosY = [62, 312, 362, 412, 462, 512, 562, 612, 662]
 
       this.posY = this.obstaclesPosY[Math.floor(Math.random()*this.obstaclesPosY.length)];
       this.width = width;

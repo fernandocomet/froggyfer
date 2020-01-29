@@ -11,8 +11,9 @@ const game = {
   FPS: 60,
   framesCounter: 0,
   score: 0,
-  obstacles: [],
-  briges: [],
+  lives: 0,
+  obstaclesArr: [],
+  bridgesArr: [],
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -74,9 +75,12 @@ const game = {
       200, //this.height,
       "./images/water.png"
     );
+    //Aquí las casas  this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    this.house = new House(this.ctx, 1366/5, 0, 50, 50);
     this.obstaclesArr = [];
     this.bridgesArr = [];
     this.scoreboard = scoreboard;
+    this.housesArr = []; //// ESTO FALLA
   },
 
   drawAll() {
@@ -84,6 +88,11 @@ const game = {
     this.water.draw();
     this.obstaclesArr.forEach(obs => obs.draw());
     this.bridgesArr.forEach(bridge => bridge.draw());
+    this.house.draw(
+        this.player.posX,
+        this.player.posY,
+        this.player.imagePosition
+    );
     this.player.draw(
       this.player.posX,
       this.player.posY,
@@ -97,6 +106,7 @@ const game = {
     this.water.move();
     this.obstaclesArr.forEach(obs => obs.move());
     this.bridgesArr.forEach(bridge => bridge.move());
+    this.house.move();
   },
 
   clear() {
@@ -170,33 +180,34 @@ const game = {
     }
 
     if (
-     //for Each
-          /*for Each
-     items.forEach((item) => {
-        console.log(item.name);
-    })
-    
-    var sample = [1, 2, 3];
-    sample.forEach((elem, index) => console.log(`${elem} comes at ${index}`));
-    */
+      /*for Each 
+     this.bridgesArr.forEach((bridge) => {
+        return (
+            this.player.posX < bridge.posX + bridge.width &&
+            this.player.posX + this.player.width > bridge.posX &&
+            this.player.posY < bridge.posY + bridge.height &&
+            this.player.posY + this.player.height > bridge.posY
+          ); 
+        })
+    )*/
 
-     //Some
+      //Some
       this.bridgesArr.some(bridge => {
         return (
           this.player.posX < bridge.posX + bridge.width &&
           this.player.posX + this.player.width > bridge.posX &&
           this.player.posY < bridge.posY + bridge.height &&
           this.player.posY + this.player.height > bridge.posY
-        ); 
+        );
       })
     ) {
       bridgeCollision = true;
     } else {
       bridgeCollision = false;
     }
-    if((waterCollision === true) && (bridgeCollision === true)){
-        console.log("over trunk!");
-        //this.player.posX = this.bridge.posX;
+    if (waterCollision === true && bridgeCollision === true) {
+      console.log("over trunk!");
+      //this.player.posX = this.bridge.posX;
     }
 
     if (waterCollision === true && bridgeCollision === false) {
