@@ -78,26 +78,16 @@ const game = {
     },
 
     generateObstacles() {
-      if (this.framesCounter % 100 == 0) {
+      if (this.framesCounter % 25 == 0) { //Before 100
         this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, Math.randomInt(0, 1), this.canvas.width));
-        // this.obstaclesArr.push(new Obstacle(this.ctx, Math.randomInt(50, 500), 30, false));
-        //constructor(ctx, width, height, isReverse) 
-        console.log(this.obstaclesArr);
+        //console.log(this.obstaclesArr);
       }
     },
   
     clearObstacles() {
-      //TO DO quitar obstáculos cuando se salgan del canvas x
-      //this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= this.canvas.width + 300);
-      //this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX <= 0);
-    //   this.obstaclesArr = this.obstaclesArr.filter((item) => {
-    //     return item.posX <= 0 
-    //   })
      this.obstaclesArr = this.obstaclesArr.filter(obs => obs.posX >= -500 || obs.posX <= this.canvas.width);
-     //TO DO falta la otra
     },
   
-    
     isCollision() {
       return this.obstaclesArr.some(obs => {
         return (
