@@ -1,5 +1,6 @@
 Math.randomFloat = (min, max) => Math.random() * (max - min) + min;
-Math.randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+Math.randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
 Math.shuffle = (array, _) => array.sort(() => Math.random() - 0.5);
 
 const game = {
@@ -52,7 +53,7 @@ const game = {
       this.generateBridges();
       this.clearBridges();
       if (this.isCollisionWater()) {
-         console.log("water");
+        this.gameOver();
       }
       this.score += 0.01;
       this.drawScore();
@@ -64,8 +65,14 @@ const game = {
     this.background = new Background(
       this.ctx,
       1366, //this.width,
-      768,  //this.height,
-      "./images/bgwater.png"
+      768, //this.height,
+      "./images/road.png"
+    );
+    this.water = new Water(
+      this.ctx,
+      1366, //this.width,
+      200, //this.height,
+      "./images/water.png"
     );
     this.obstaclesArr = [];
     this.bridgesArr = [];
@@ -74,18 +81,20 @@ const game = {
 
   drawAll() {
     this.background.draw();
+    this.water.draw();
     this.obstaclesArr.forEach(obs => obs.draw());
     this.bridgesArr.forEach(bridge => bridge.draw());
     this.player.draw(
-        this.player.posX,
-        this.player.posY,
-        this.player.imagePosition
-      );
+      this.player.posX,
+      this.player.posY,
+      this.player.imagePosition
+    );
   },
 
   moveAll() {
     this.player.move();
     this.background.move();
+    this.water.move();
     this.obstaclesArr.forEach(obs => obs.move());
     this.bridgesArr.forEach(bridge => bridge.move());
   },
@@ -126,11 +135,11 @@ const game = {
   },
 
   generateBridges() {
-    if (this.framesCounter % 25 == 0) {  //Maybe change framesCounter
+    if (this.framesCounter % 25 == 0) {
       this.bridgesArr.push(
         new Bridge(
           this.ctx,
-          this.width,   //Math.randomInt(100, 200),
+          this.width, //Math.randomInt(100, 200),
           48,
           Math.randomInt(0, 1),
           this.canvas.width
@@ -145,16 +154,40 @@ const game = {
     );
   },
 
-  isCollisionWater(){     //  if(this.posY < 251 && this.posY > 99)
-  return this.bridgesArr.some(obs => {
-    return (
-      this.player.posX < obs.posX + obs.width &&
-      this.player.posX + this.player.width > obs.posX &&
-      this.player.posY < obs.posY + obs.height &&
-      this.player.posY + this.player.height > obs.posY
-    );
-  });
-},
+  isCollisionWater() {
+    let waterCollision = false;
+    let bridgeCollision = false;
+
+    if (
+      this.player.posX < this.water.posX + this.water.width &&
+      this.player.posX + this.player.width > this.water.posX &&
+      this.player.posY < this.water.posY + this.water.height &&
+      this.player.posY + this.player.height > this.water.posY
+    ) {
+      waterCollision = true;
+    } else {
+      waterCollision = false;
+    }
+
+    if (
+      this.bridgesArr.some(bridge => {
+        return (
+          this.player.posX < bridge.posX + bridge.width &&
+          this.player.posX + this.player.width > bridge.posX &&
+          this.player.posY < bridge.posY + bridge.height &&
+          this.player.posY + this.player.height > bridge.posY
+        );
+      })
+    ) {
+      bridgeCollision = true;
+    } else {
+      bridgeCollision = false;
+    }
+
+    if (waterCollision === true && bridgeCollision === false) {
+      return true;
+    }
+  },
 
   gameOver() {
     clearInterval(this.interval);
