@@ -3,21 +3,28 @@ class Bridge {
     this.ctx = ctx;
     this.gameWidth = gameWidth;
 
-    //this.obstaclesPosY = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
     this.bridgesPosY = [100, 150, 200, 250];
-
     this.posY = this.bridgesPosY[Math.floor(Math.random() * this.bridgesPosY.length)];
 
+    //images for bridges
+    var img1 = new Image();
+    img1.src = "./images/log100.png";
+
+    var img2 = new Image();
+    img1.src = "./images/log150.png";
+
+    var img3 = new Image();
+    img1.src = "./images/log200.png";
+
+    var img4 = new Image();
+    img1.src = "./images/log250.png";
+
     this.bridgesWidth = [100, 150, 200, 250];
-    //this.width = width;
     this.width = this.bridgesWidth[Math.floor(Math.random() * this.bridgesWidth.length)];
     // this.width = this.bridgesWidth[Math.floor(Math.random() * (3) + 1)];
-    // console.log(this.width);
 
     this.height = height;
-    //this.isReverse = isReverse ? true : false;
     this.velX = 2; //easy 3
-    // this.posX = this.isReverse ? 0 - this.width : this.gameWidth;
 
     switch (this.posY) {
       case 100:

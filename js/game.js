@@ -70,13 +70,13 @@ const game = {
       this.ctx,
       1366, //this.width,
       768, //this.height,
-      "./images/road.png" //trial
+      "./images/forest.png" //trial
     );
     this.water = new Water(
       this.ctx,
       1366, //this.width,
       200, //this.height,
-      "./images/water.png"
+      "./images/water2.png"
     );
     this.houseArr= []
     this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 1 + 100))
@@ -216,7 +216,7 @@ const game = {
             // this.housesCounter === 3 ? alert("you win!") : this.housesCounter += 1;
             this.housesCounter === 3 ? this.gameWin() : this.housesCounter += 1;
             this.player.posY = 700;
-            //this.player.posX = this.gameWidth / 2 - this.width / 2;
+            this.player.posX = 658;
             this.housesArr[idx].isEmpty = false ;
             this.housesArr[idx].imagePosition = 50;
            }
