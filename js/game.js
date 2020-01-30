@@ -35,6 +35,7 @@ const game = {
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
     scoreboard.init(this.ctx);
+    this.audio = new Sound('audio/music.mp3');
     this.start();
   },
 
@@ -61,6 +62,7 @@ const game = {
       this.isCollisionWithHouses()
       this.score += 0.01;
       this.drawScore();
+      //this.audio.play();
     }, 1000 / this.FPS);
   },
 
@@ -148,6 +150,20 @@ const game = {
       this.bridgesArr.push(
         new Bridge(
           this.ctx,
+          Math.randomInt(100, 200),
+          Math.randomInt(0, 1),
+          this.canvas.width,
+        )
+      );
+    }
+  },
+
+  /*
+    generateBridges() {
+    if (this.framesCounter % 25 == 0) {
+      this.bridgesArr.push(
+        new Bridge(
+          this.ctx,
           this.width, //Math.randomInt(100, 200),
           48,
           Math.randomInt(0, 1),
@@ -156,6 +172,7 @@ const game = {
       );
     }
   },
+  */
 
   clearBridges() {
     this.bridgesArr = this.bridgesArr.filter(
@@ -229,6 +246,7 @@ const game = {
     clearInterval(this.interval);
     console.log("GAME OVER");
     alert("GAME OVER");
+    // this.sound.pause();
     //TODO Play Again & whatsoever
   },
 
@@ -236,6 +254,7 @@ const game = {
     clearInterval(this.interval);
     console.log("YOU WIN");
     alert("YOU WIN!");
+    // this.sound.pause();
     //TODO Play Again & whatsoever
   },
 

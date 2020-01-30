@@ -8,6 +8,11 @@ class Obstacle {
       //this.obstaclesPosY = [0, 350, 400, 450, 500, 550, 600]; borro 12
       this.obstaclesPosY = [62, 312, 362, 412, 462, 512, 562, 612, 662]
 
+
+      ////////
+
+      ////////
+
       this.posY = this.obstaclesPosY[Math.floor(Math.random()*this.obstaclesPosY.length)];
       this.width = width;
       this.height = height;
