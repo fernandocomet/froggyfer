@@ -15,7 +15,7 @@ const game = {
   obstaclesArr: [],
   bridgesArr: [],
   housesArr: [],
-  houseCounter: 0,
+  housesCounter: 0,
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -79,15 +79,15 @@ const game = {
       "./images/water.png"
     );
     this.houseArr= []
-    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 1))
-    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 2))
-    this.housesArr.push(new House(this.ctx, this.width, this.height,this.width/6 * 3))
-    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 4))
+    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 1 + 100))
+    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 2 + 100))
+    this.housesArr.push(new House(this.ctx, this.width, this.height,this.width/6 * 3 + 100))
+    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 4 +100))
  
     this.obstaclesArr = [];
     this.bridgesArr = [];
     this.scoreboard = scoreboard;
-    this.houseCounter = 0;
+    this.housesCounter = 0;
     
   },
 
@@ -212,22 +212,30 @@ const game = {
             this.player.posY + this.player.height > house.posY
         ){
            if(this.housesArr[idx].isEmpty){
-            console.log("HAS LLEGADO")
-            this.housesCounter === 4 ? alert("you win!") : this.housesCounter += 1;
+            console.log(this.housesCounter);
+            // this.housesCounter === 3 ? alert("you win!") : this.housesCounter += 1;
+            this.housesCounter === 3 ? this.gameWin() : this.housesCounter += 1;
+            this.player.posY = 700;
+            //this.player.posX = this.gameWidth / 2 - this.width / 2;
             this.housesArr[idx].isEmpty = false ;
             this.housesArr[idx].imagePosition = 50;
-            this.player.posY = 700
            }
            
         }
     })
-  
-    
   },
 
   gameOver() {
     clearInterval(this.interval);
     console.log("GAME OVER");
+    alert("GAME OVER");
+    //TODO Play Again & whatsoever
+  },
+
+  gameWin(){
+    clearInterval(this.interval);
+    console.log("YOU WIN");
+    alert("YOU WIN!");
     //TODO Play Again & whatsoever
   },
 

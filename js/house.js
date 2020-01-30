@@ -28,7 +28,6 @@ class House {
           this.width,
           this.height
         );
-        console.log("se estan dibujando")
       }
       
   
