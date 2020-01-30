@@ -15,6 +15,7 @@ const game = {
   obstaclesArr: [],
   bridgesArr: [],
   housesArr: [],
+  houseCounter: 0,
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -57,10 +58,7 @@ const game = {
       if (this.isCollisionWater()) {
         this.gameOver();
       }
-      if (this.isCollisionHouse1()) {
-        this.house1.imagePosition = 50;
-        console.log("collision House1!");
-      }
+      this.isCollisionWithHouses()
       this.score += 0.01;
       this.drawScore();
     }, 1000 / this.FPS);
@@ -80,14 +78,17 @@ const game = {
       200, //this.height,
       "./images/water.png"
     );
-    this.house1 = new House(this.ctx, this.width, this.height);
-    this.house2 = new House(this.ctx, this.width, this.height);
-    this.house3 = new House(this.ctx, this.width, this.height);
-    this.house4 = new House(this.ctx, this.width, this.height);
+    this.houseArr= []
+    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 1))
+    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 2))
+    this.housesArr.push(new House(this.ctx, this.width, this.height,this.width/6 * 3))
+    this.housesArr.push(new House(this.ctx, this.width, this.height, this.width/6 * 4))
+ 
     this.obstaclesArr = [];
     this.bridgesArr = [];
     this.scoreboard = scoreboard;
-    //this.housesArr = []; //// ESTO FALLA
+    this.houseCounter = 0;
+    
   },
 
   drawAll() {
@@ -95,31 +96,8 @@ const game = {
     this.water.draw();
     this.obstaclesArr.forEach(obs => obs.draw());
     this.bridgesArr.forEach(bridge => bridge.draw());
-    this.house1.draw(
-      this.house1.houseSeparation + 100,
-      this.house1.posY,
-      this.house1.imagePosition
-    );
-    this.house2.draw(
-      this.house2.houseSeparation * 2 + 100,
-      this.house2.posY,
-      this.house2.imagePosition
-    );
-    this.house3.draw(
-      this.house3.houseSeparation * 3 + 100,
-      this.house3.posY,
-      this.house3.imagePosition
-    );
-    this.house4.draw(
-      this.house4.houseSeparation * 4 + 100,
-      this.house4.posY,
-      this.house4.imagePosition
-    );
-    this.player.draw(
-      this.player.posX,
-      this.player.posY,
-      this.player.imagePosition
-    );
+    this.player.draw(this.player.posX, this.player.posY, this.player.imagePosition);
+    this.housesArr.forEach(house => house.draw())
   },
 
   moveAll() {
@@ -128,10 +106,6 @@ const game = {
     this.water.move();
     this.obstaclesArr.forEach(obs => obs.move());
     this.bridgesArr.forEach(bridge => bridge.move());
-    this.house1.move();
-    this.house2.move();
-    this.house3.move();
-    this.house4.move();
   },
 
   clear() {
@@ -228,19 +202,27 @@ const game = {
     }
   },
 
-  isCollisionHouse1() {
-    let collisionHouse1 = false;
-    if (   //Does not work!!!
-      this.player.posX < this.house1.posX + this.house1.width &&
-      this.player.posX + this.player.width > this.house1.posX &&
-      this.player.posY < this.house1.posY + this.house1.height &&
-      this.player.posY + this.player.height > this.house1.posY
-    ) {
-        collisionHouse1 = true;
-        console.log("collision house 1");
-      //return true;
-    }
-    if(collisionHouse1 === true){return true;}
+  isCollisionWithHouses() {
+
+    this.housesArr.forEach((house,idx) =>{
+        if(
+            this.player.posX < house.posX + house.width &&
+            this.player.posX + this.player.width > house.posX &&
+            this.player.posY < house.posY + house.height &&
+            this.player.posY + this.player.height > house.posY
+        ){
+           if(this.housesArr[idx].isEmpty){
+            console.log("HAS LLEGADO")
+            this.housesCounter === 4 ? alert("you win!") : this.housesCounter += 1;
+            this.housesArr[idx].isEmpty = false ;
+            this.housesArr[idx].imagePosition = 50;
+            this.player.posY = 700
+           }
+           
+        }
+    })
+  
+    
   },
 
   gameOver() {
