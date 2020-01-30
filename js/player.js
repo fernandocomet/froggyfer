@@ -52,12 +52,14 @@ class Player {
       switch (e.keyCode) {
         case this.keys.TOP:
           this.imagePosition = 0; 
-          if (this.posY <= this.height) {
-            this.posY === this.posY + this.height;
+        //   if (this.posY <= this.height) {
+        //     this.posY === this.posY + this.height;
+          if (this.posY <= 0) {  
+            this.posY === this.posY;
+            console.log(this.posY);
           } else {
             this.posY -= advance;
           }
-        //   console.log(this.posY);
           break;
 
         case this.keys.LEFT:

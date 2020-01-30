@@ -11,6 +11,7 @@ class Bridge {
     this.bridgesWidth = [100, 150, 200, 250];
     //this.width = width;
     this.width = this.bridgesWidth[Math.floor(Math.random() * this.bridgesWidth.length)];
+    // console.log(this.width);
 
     this.height = height;
     //this.isReverse = isReverse ? true : false;

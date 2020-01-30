@@ -15,16 +15,8 @@ class House {
 
       this.houseSeparation = 1366/6;
     }
-
-    /*
-    draw() {
-        this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-      //   void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);  s: source / d: destiny
-    }
-    */
     
     draw(posX, posY, imagePosition) {
-        // console.log();
         this.ctx.drawImage(
           this.image,
           this.imagePosition,

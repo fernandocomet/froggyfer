@@ -14,6 +14,7 @@ const game = {
   lives: 0,
   obstaclesArr: [],
   bridgesArr: [],
+  housesArr: [],
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -22,8 +23,8 @@ const game = {
   },
 
   setDimensions() {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width = 1366; //window.innerWidth;
+    this.height = 768; //window.innerHeight;
     this.canvas.width = this.width;
     this.canvas.height = this.height;
   },
@@ -56,6 +57,10 @@ const game = {
       if (this.isCollisionWater()) {
         this.gameOver();
       }
+      if (this.isCollisionHouse1()) {
+        this.house1.imagePosition = 50;
+        console.log("collision House1!");
+      }
       this.score += 0.01;
       this.drawScore();
     }, 1000 / this.FPS);
@@ -67,7 +72,7 @@ const game = {
       this.ctx,
       1366, //this.width,
       768, //this.height,
-      "./images/road.png"   //trial
+      "./images/road.png" //trial
     );
     this.water = new Water(
       this.ctx,
@@ -90,10 +95,26 @@ const game = {
     this.water.draw();
     this.obstaclesArr.forEach(obs => obs.draw());
     this.bridgesArr.forEach(bridge => bridge.draw());
-    this.house1.draw(this.house1.houseSeparation + 100, this.house1.posY, this.house1.imagePosition);
-    this.house1.draw(this.house1.houseSeparation*2 + 100, this.house1.posY, this.house1.imagePosition);
-    this.house1.draw(this.house1.houseSeparation*3 + 100, this.house1.posY, this.house1.imagePosition);
-    this.house1.draw(this.house1.houseSeparation*4 + 100, this.house1.posY, this.house1.imagePosition);
+    this.house1.draw(
+      this.house1.houseSeparation + 100,
+      this.house1.posY,
+      this.house1.imagePosition
+    );
+    this.house2.draw(
+      this.house2.houseSeparation * 2 + 100,
+      this.house2.posY,
+      this.house2.imagePosition
+    );
+    this.house3.draw(
+      this.house3.houseSeparation * 3 + 100,
+      this.house3.posY,
+      this.house3.imagePosition
+    );
+    this.house4.draw(
+      this.house4.houseSeparation * 4 + 100,
+      this.house4.posY,
+      this.house4.imagePosition
+    );
     this.player.draw(
       this.player.posX,
       this.player.posY,
@@ -184,18 +205,6 @@ const game = {
     }
 
     if (
-      /*for Each 
-     this.bridgesArr.forEach((bridge) => {
-        return (
-            this.player.posX < bridge.posX + bridge.width &&
-            this.player.posX + this.player.width > bridge.posX &&
-            this.player.posY < bridge.posY + bridge.height &&
-            this.player.posY + this.player.height > bridge.posY
-          ); 
-        })
-    )*/
-
-      //Some
       this.bridgesArr.some(bridge => {
         return (
           this.player.posX < bridge.posX + bridge.width &&
@@ -210,8 +219,8 @@ const game = {
       bridgeCollision = false;
     }
     if (waterCollision === true && bridgeCollision === true) {
-      console.log("over trunk!");
-      //this.player.posX = this.bridge.posX;
+      //console.log("over trunk!");
+      //this.player.posX = this.bridge.posX; TODO Que se monte la rana en el tronco y herede su velocidad
     }
 
     if (waterCollision === true && bridgeCollision === false) {
@@ -219,15 +228,19 @@ const game = {
     }
   },
 
-  isCollisionHouses() {
-    // return this.obstaclesArr.some(obs => {
-    //   return (
-    //     this.player.posX < obs.posX + obs.width &&
-    //     this.player.posX + this.player.width > obs.posX &&
-    //     this.player.posY < obs.posY + obs.height &&
-    //     this.player.posY + this.player.height > obs.posY
-    //   );
-    // });
+  isCollisionHouse1() {
+    let collisionHouse1 = false;
+    if (   //Does not work!!!
+      this.player.posX < this.house1.posX + this.house1.width &&
+      this.player.posX + this.player.width > this.house1.posX &&
+      this.player.posY < this.house1.posY + this.house1.height &&
+      this.player.posY + this.player.height > this.house1.posY
+    ) {
+        collisionHouse1 = true;
+        console.log("collision house 1");
+      //return true;
+    }
+    if(collisionHouse1 === true){return true;}
   },
 
   gameOver() {
