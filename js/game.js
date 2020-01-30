@@ -67,7 +67,7 @@ const game = {
       this.ctx,
       1366, //this.width,
       768, //this.height,
-      "./images/trial.png"   //road
+      "./images/road.png"   //trial
     );
     this.water = new Water(
       this.ctx,
@@ -75,18 +75,14 @@ const game = {
       200, //this.height,
       "./images/water.png"
     );
-    //Aquí las casas  constructor(ctx, w, h, imgSource) {
-    //this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    this.house = new House(
-        this.ctx, 
-        50, 
-        50, 
-        "./images/house.png"
-    );
+    this.house1 = new House(this.ctx, this.width, this.height);
+    this.house2 = new House(this.ctx, this.width, this.height);
+    this.house3 = new House(this.ctx, this.width, this.height);
+    this.house4 = new House(this.ctx, this.width, this.height);
     this.obstaclesArr = [];
     this.bridgesArr = [];
     this.scoreboard = scoreboard;
-    this.housesArr = []; //// ESTO FALLA
+    //this.housesArr = []; //// ESTO FALLA
   },
 
   drawAll() {
@@ -94,7 +90,10 @@ const game = {
     this.water.draw();
     this.obstaclesArr.forEach(obs => obs.draw());
     this.bridgesArr.forEach(bridge => bridge.draw());
-    this.house.draw();
+    this.house1.draw(this.house1.houseSeparation + 100, this.house1.posY, this.house1.imagePosition);
+    this.house1.draw(this.house1.houseSeparation*2 + 100, this.house1.posY, this.house1.imagePosition);
+    this.house1.draw(this.house1.houseSeparation*3 + 100, this.house1.posY, this.house1.imagePosition);
+    this.house1.draw(this.house1.houseSeparation*4 + 100, this.house1.posY, this.house1.imagePosition);
     this.player.draw(
       this.player.posX,
       this.player.posY,
@@ -108,7 +107,10 @@ const game = {
     this.water.move();
     this.obstaclesArr.forEach(obs => obs.move());
     this.bridgesArr.forEach(bridge => bridge.move());
-    this.house.move();
+    this.house1.move();
+    this.house2.move();
+    this.house3.move();
+    this.house4.move();
   },
 
   clear() {
@@ -215,6 +217,17 @@ const game = {
     if (waterCollision === true && bridgeCollision === false) {
       return true;
     }
+  },
+
+  isCollisionHouses() {
+    // return this.obstaclesArr.some(obs => {
+    //   return (
+    //     this.player.posX < obs.posX + obs.width &&
+    //     this.player.posX + this.player.width > obs.posX &&
+    //     this.player.posY < obs.posY + obs.height &&
+    //     this.player.posY + this.player.height > obs.posY
+    //   );
+    // });
   },
 
   gameOver() {
