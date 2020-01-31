@@ -17,9 +17,11 @@
         body {
             overflow: hidden; 
             display: flex;
+            margin: 0;
+            padding: 0;
         }
         #intro{   
-            display: block;
+            display: flex;
             width: 100vw;
             height: 100vh;
             justify-content: center;
@@ -53,7 +55,7 @@
         }
         #blancoderecha{position: absolute; top: 0px; left: 1366px; z-index: 200; opacity: 1}  
         #blancoabajo{position: absolute; top: 768px; left: 0px; z-index: 201; opacity: 1}  
-        #bg{position: absolute; top: 0px; left: 0px; z-index: 10; opacity: 0}  
+        #bg{position: absolute; top: 0px; left: 0px; z-index: 10; opacity: 0; width:100%; object-fit:contain;}  
         #nenufar1{position: absolute; top: 800px; left: 130px; z-index: 11; opacity: 1} 
         #nenufar2{position: absolute; top: 800px; left: 675px; z-index: 12; opacity: 1}  
         #nenufar3{position: absolute; top: 800px; left: 840px; z-index: 13; opacity: 1}  
@@ -64,13 +66,13 @@
         #trunk2{position: absolute; top: -100px; left: 1072px; z-index: 18; opacity: 1}  
         #trunk3{position: absolute; top: -100px; left: 1072px; z-index: 19; opacity: 1}  
         #start{position: absolute; top: 515px; left: 691px; z-index: 22; opacity: 0} 
-        #water{position: absolute; top: 1800px; left: 0px; z-index: 21; opacity: 1} 
+        #water{position: absolute; top: 1800px; left: 0px; z-index: 21; opacity: 1; width:100%; object-fit:contain;} 
 
     </style>
 
     <div id="intro">
-            <img src="./images/intro/blanco.svg" id="blancoderecha">
-            <img src="./images/intro/blanco.svg" id="blancoabajo">
+            <!-- <img src="./images/intro/blanco.svg" id="blancoderecha"> 
+            <img src="./images/intro/blanco.svg" id="blancoabajo"> -->
             <img src="./images/intro/intro_bg.png" id="bg">
             <img src="./images/intro/intro_nenufar.svg" id="nenufar1">
             <img src="./images/intro/intro_nenufar.svg" id="nenufar2">
