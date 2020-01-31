@@ -7,7 +7,7 @@ const scoreboard = {
     },
   
     update(score) {
-      this.ctx.fillStyle = "green";
+      this.ctx.fillStyle = "white";
     //   console.log(Math.floor(score), "--------------");
       this.ctx.fillText(Math.floor(score), 50, 50);
     }

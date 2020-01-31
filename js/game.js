@@ -35,7 +35,7 @@ const game = {
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
     scoreboard.init(this.ctx);
-    this.audio = new Sound('audio/froggy.mp3');
+    this.audio = new Sound('audio/froggy2.mp3');
     this.start();
   },
 
@@ -62,7 +62,7 @@ const game = {
       this.isCollisionWithHouses()
       this.score += 0.01;
       this.drawScore();
-    //   this.audio.play();
+      this.audio.play();
     }, 1000 / this.FPS);
   },
 
@@ -90,7 +90,19 @@ const game = {
     this.bridgesArr = [];
     this.scoreboard = scoreboard;
     this.housesCounter = 0;
-    
+
+    this.youwinscreen = new Youwinscreen(
+        this.ctx, 
+        1366, 
+        768, 
+        "./images/wingame.png"
+    );
+    this.gameoverscreen = new Gameoverscreen(
+        this.ctx, 
+        1366, 
+        768, 
+        "./images/endgame.png"
+    );
   },
 
   drawAll() {
@@ -119,8 +131,6 @@ const game = {
       this.obstaclesArr.push(
         new Obstacle(
           this.ctx,
-          Math.randomInt(50, 500),
-          30,
           Math.randomInt(0, 1),
           this.canvas.width
         )
@@ -242,19 +252,20 @@ const game = {
     })
   },
 
-  gameOver() {
+  gameOver() { 
     clearInterval(this.interval);
     console.log("GAME OVER");
-    alert("GAME OVER");
-    // this.sound.pause();
     //TODO Play Again & whatsoever
+    this.gameoverscreen.draw();
+    //this.audio.pause();
   },
 
   gameWin(){
     clearInterval(this.interval);
     console.log("YOU WIN");
-    alert("YOU WIN!");
-    // this.sound.pause();
+    // alert("YOU WIN!");
+    this.youwinscreen.draw();
+   // this.sound.pause();
     //TODO Play Again & whatsoever
   },
 
