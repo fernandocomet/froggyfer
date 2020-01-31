@@ -10,7 +10,8 @@ class Player {
     this.height = this.imageSize;
 
     this.image = new Image();
-    this.image.src = "./images/playersprite.png";
+    this.image.src = "./images/frog3.png";
+    // this.image.src = "./images/playersprite.png";
     this.imagePosition = 0;
 
     this.posX = this.gameWidth / 2 - this.width / 2;

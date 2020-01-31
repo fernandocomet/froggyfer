@@ -35,7 +35,7 @@ const game = {
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
     scoreboard.init(this.ctx);
-    this.audio = new Sound('audio/music.mp3');
+    this.audio = new Sound('audio/froggy.mp3');
     this.start();
   },
 
@@ -62,7 +62,7 @@ const game = {
       this.isCollisionWithHouses()
       this.score += 0.01;
       this.drawScore();
-      //this.audio.play();
+    //   this.audio.play();
     }, 1000 / this.FPS);
   },
 

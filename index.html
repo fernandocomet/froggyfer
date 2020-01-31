@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script> 
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/timelinemax_2.1.2_min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <title>FroggyFer - Javascript Canvas OOP Game based on Frogger 80´s game</title>
 </head>
@@ -15,15 +17,26 @@
         body {
             overflow: hidden; 
         }
-        #container{   
+        #intro{   
             display: flex;
             width: 100vw;
             height: 100vh;
             justify-content: center;
             align-items: center;
             background-color: white;
+            z-index: 9;
+        }
+        #container{   
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            z-index: 8;
         }
         #myCanvas {
+            display: none;
             padding: 0;
             margin: auto;
             display: block;
@@ -34,10 +47,38 @@
             bottom: 0;
             left: 0;
             right: 0; 
+            z-index: 7;
             background-color: black;
         }
+        #bg{position: absolute; top: 0px; left: 05px; z-index: 10; opacity: 0}  
+        #nenufar1{position: absolute; top: 800px; left: 130px; z-index: 11; opacity: 1}  /* top a 620 */
+        #nenufar2{position: absolute; top: 800px; left: 675px; z-index: 12; opacity: 1}  
+        #nenufar3{position: absolute; top: 800px; left: 840px; z-index: 13; opacity: 1}  
+        #frog{position: absolute; top: 1600px; left: 800px; z-index: 24; opacity: 1}  /* viene a x 329, y 351, escala 1 bounce */
+        #froggyfer{position: absolute; top: 0px; left: 404px; z-index: 15; opacity: 0}  /* cae a opacity 1 e y 135 bounce */
+        #introtext{position: absolute; top: 314px; left: 1000px; z-index: 16; opacity: 0}  /* va a x 670 rebote */
+        #trunk1{position: absolute; top: -100px; left: 1072px; z-index: 17; opacity: 1}  /* cae a y 674 */
+        #trunk2{position: absolute; top: -100px; left: 1072px; z-index: 18; opacity: 1}  /* a y 580 */
+        #trunk3{position: absolute; top: -100px; left: 1072px; z-index: 19; opacity: 1}  /* a y 486 */
+        #start{position: absolute; top: 515px; left: 691px; z-index: 22; opacity: 0}  /* opacity 1, scale rebote */
+        #water{position: absolute; top: 1800px; left: 0px; z-index: 21; opacity: 1}  /* sube  */
+
     </style>
-    <div id="container">
+   
+    <div id="intro">
+            <img src="./images/intro/intro_bg.png" id="bg">
+            <img src="./images/intro/intro_nenufar.svg" id="nenufar1">
+            <img src="./images/intro/intro_nenufar.svg" id="nenufar2">
+            <img src="./images/intro/intro_nenufar.svg" id="nenufar3">
+            <img src="./images/intro/intro_frog.svg" id="frog">
+            <img src="./images/intro/intro_froggyfer.svg" id="froggyfer">
+            <img src="./images/intro/intro_text.svg" id="introtext">
+            <img src="./images/intro/intro_trunk.svg" id="trunk1">
+            <img src="./images/intro/intro_trunk.svg" id="trunk2">
+            <img src="./images/intro/intro_start.svg" id="start">
+            <img src="./images/intro/intro_water.svg" id="water">
+    </div>
+    <div id="container">   
         <canvas id="myCanvas"></canvas>
     </div>
     <script src="js/game.js"></script>
@@ -50,6 +91,58 @@
     <script src="js/scoreboard.js"></script>
     <script src="js/house.js"></script>
     <script src="js/sound.js"></script>
+
+    <script type="text/javascript">
+	
+    // Enabler Initialization
+      // If true, start function. If false, listen for INIT.
+      window.onload = function() {
+            introAnimation();   
+
+            document.getElementById("start").onclick = function () {
+                startGame();
+            };
+
+            function startGame() {
+                document.getElementById("intro").style.display = "none";
+                document.getElementById("container").style.display = "flex";
+                document.getElementById("myCanvas").style.display = "block";
+                game.init();
+        }
+      }
+
+      function introAnimation(){
+
+         var bg = document.getElementById("bg");
+         var nenufar1 = document.getElementById("nenufar1");
+         var nenufar2 = document.getElementById("nenufar2");
+         var nenufar3 = document.getElementById("nenufar3");
+         var frog = document.getElementById("frog");
+         var froggyfer = document.getElementById("froggyfer");
+         var introtext = document.getElementById("introtext");
+         var trunk1 = document.getElementById("trunk1");
+         var trunk2 = document.getElementById("trunk2");
+         var start = document.getElementById("start");
+         var water = document.getElementById("water");
+
+         TweenMax.to('#bg', 1, {delay: 1, opacity: 1}); 
+         TweenMax.to('#nenufar1', 1, {delay: 2, top: "620px"});    
+         TweenMax.to('#frog', 0,  {delay: 0, scale:0.1, top: "1600px", left: "329px", transformOrigin:"50% 50%"});
+         TweenMax.to('#frog', 1,  {delay:2, scale:0.5, top: "1000px", left: "500px", ease:Bounce.easeOut, transformOrigin:"50% 50%"}); 
+         TweenMax.to('#frog', 1,  {delay:3, scale:1, top: "351px", left: "329px", ease:Bounce.easeOut, transformOrigin:"50% 50%"}); 
+         TweenMax.to('#nenufar2', 1, {delay: 4, top: "620px"}); 
+         TweenMax.to('#nenufar3', 1, {delay: 5, top: "620px"}); 
+         TweenMax.to('#froggyfer', 1, {delay: 5.5, top: "135px", opacity: 1, ease:Bounce.easeOut}); 
+         TweenMax.to('#introtext', 1, {delay: 6, left: "670px", ease:Bounce.easeOut, opacity: 1}); 
+         TweenMax.to('#trunk1', 1, {delay: 6.5, top: "674px", ease:Bounce.easeOut}); 
+         TweenMax.to('#trunk2', 1, {delay: 7, top: "674px", ease:Bounce.easeOut}); 
+         TweenMax.to('#trunk3', 1, {delay: 7.5, top: "674px", ease:Bounce.easeOut}); 
+         TweenMax.to('#start', 1, {delay: 8, opacity: 1}); 
+         TweenMax.to('#water', 5, {delay: 9, top: "500px"}); 
+
+      }
+      </script>
 </body>
 
 </html>
+

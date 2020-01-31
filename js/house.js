@@ -7,7 +7,7 @@ class House {
       this.height = this.imageSize;
   
       this.image = new Image();
-      this.image.src = "./images/house.png";
+      this.image.src = "./images/house_brown.png";
       this.imagePosition = 0;
   
       this.posX = posX;
